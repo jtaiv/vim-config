@@ -1,0 +1,4 @@
+# Ignore other vim files
+.viminfo
+.vimswap
+.vimhistory
