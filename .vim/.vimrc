@@ -187,6 +187,23 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 " completion for javascript
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
+" create a self-clearing autocommand group called 'qf'
+augroup qf
+    " clear all autocommands in this group
+    autocmd!
+
+    " do :cwindow if the quickfix command doesn't start
+    " with a 'l' (:grep, :make, etc.)
+    autocmd QuickFixCmdPost [^l]* cwindow
+
+    " do :lwindow if the quickfix command starts with
+    " a 'l' (:lgrep, :lmake, etc.)
+    autocmd QuickFixCmdPost l*    lwindow
+
+    " do :cwindow when Vim was started with the '-q' flag
+    autocmd VimEnter        *     cwindow
+augroup END
+
 " Show EOL type and last modified timestamp, right after the filename
 set statusline=%<%F%h%m%r\ [%{&ff}]\ (%{strftime(\"%Y-%m-%d\ %H:%M:%S\",getftime(expand(\"%:p\")))})%=%l,%c%V\ %P
 
