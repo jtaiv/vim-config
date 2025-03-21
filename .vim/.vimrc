@@ -166,6 +166,9 @@ vnoremap <F1> :set invfullscreen<CR>
 inoremap { {}<Esc>ha
 inoremap ( ()<Esc>ha
 inoremap [ []<Esc>ha
+inoremap " ""<Esc>ha
+inoremap ' ''<Esc>ha
+inoremap < <><Esc>ha
 
 " Formatting
 map <leader>q gqip
@@ -181,6 +184,9 @@ map <leader>l :set list!<CR> " Toggle tabs and EOL
 " clean trailing whitespace
 autocmd BufWritePre *.py :%s/\s\+$//e
 
+" completion for javascript
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
 " Show EOL type and last modified timestamp, right after the filename
 set statusline=%<%F%h%m%r\ [%{&ff}]\ (%{strftime(\"%Y-%m-%d\ %H:%M:%S\",getftime(expand(\"%:p\")))})%=%l,%c%V\ %P
 
@@ -192,7 +198,7 @@ colorscheme koehler
 
 " ================= PLUGINS ===================
 
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
 " Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
@@ -203,7 +209,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'lifepillar/vim-mucomplete'
 Plug 'python-mode/python-mode'
 Plug 'davidhalter/jedi-vim'
-Plug 'othree/es.next.syntax.vim'
 Plug 'othree/jspc.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
