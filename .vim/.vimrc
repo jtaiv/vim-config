@@ -204,6 +204,18 @@ augroup qf
     autocmd VimEnter        *     cwindow
 augroup END
 
+" using this as netrw is enough for most cases, no need for nerdtree
+let g:netrw_banner = 1
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 3
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+augroup ProjectDrawer
+  autocmd!
+  autocmd TabNew * :Vexplore
+  autocmd VimEnter * :Vexplore
+augroup END
+
 " Show EOL type and last modified timestamp, right after the filename
 set statusline=%<%F%h%m%r\ [%{&ff}]\ (%{strftime(\"%Y-%m-%d\ %H:%M:%S\",getftime(expand(\"%:p\")))})%=%l,%c%V\ %P
 
@@ -217,22 +229,27 @@ colorscheme koehler
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
-Plug 'scrooloose/nerdtree'
 Plug 'lifepillar/vim-mucomplete'
 Plug 'python-mode/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'othree/jspc.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
+
+" Plug 'scrooloose/nerdtree'
+" Plug 'easymotion/vim-easymotion'
 " Plug 'icymind/NeoSolarized'
 
 call plug#end()
 
+colorscheme evening
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 set completeopt-=preview
 set completeopt+=menuone,noselect
@@ -240,16 +257,6 @@ set shortmess+=c  " Shut off completion messages
 set belloff+=ctrlg
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 1
-
-" autocmd VimEnter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-map <A-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeIgnore=['\.pyc$', '\~$', '__pycache__'] "ignore files in NERDTree
-
 
 let g:pymode_lint = 0
 let g:pymode_python = "python3"
@@ -263,7 +270,11 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#usages_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 
-colorscheme evening
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
+" " autocmd VimEnter * NERDTree
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" map <A-n> :NERDTreeToggle<CR>
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+" let NERDTreeIgnore=['\.pyc$', '\~$', '__pycache__'] "ignore files in NERDTree
